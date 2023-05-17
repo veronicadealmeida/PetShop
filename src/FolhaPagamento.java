@@ -16,6 +16,7 @@ public class FolhaPagamento {
         boolean existeHoraDeDomingoEFeriado;
 
         double valorInss = 0;
+        double valorIr = 0;
         double salarioLiquido = 0;
 
 
@@ -23,7 +24,7 @@ public class FolhaPagamento {
 
         System.out.println("PetShop FIAP\n\nDigite a quantidade de horas trabalhadas: ");
         quantidade = leitorNumeros.nextInt();
-        valorHora = 18;
+        valorHora = 50;
         salario = valorHora * quantidade;
         System.out.println("Salário Bruto: " + salario);
 
@@ -60,14 +61,31 @@ public class FolhaPagamento {
             valorInss = 877.20;
         }
 
+
+
+
+
         salarioLiquido = salarioFinal - valorInss;
 
-        System.out.println("Salário Bruto: " + salario +
-                "\nHoras extras: " + salarioHorasExtras +
-                "\nHoras de Domingo e Feriados: " + salarioHorasExtrasDomingosEFeriados +
-                "\nSalário Final: " + salarioFinal +
-                "\nValor INSS: " + valorInss +
-                "\nSalário Líquido: " + salarioLiquido
+        if (salarioLiquido > 1903.98 && salarioLiquido < 2826.65) {
+            valorIr = (salarioLiquido * 0.075) - 142.8;
+        } else if (salarioLiquido < 3751.05 ) {
+            valorIr = (salarioLiquido * 0.15) - 354.8;
+        } else if (salarioLiquido < 4664.69 ) {
+            valorIr = (salarioLiquido * 0.225) - 636.13;
+        } else {
+            valorIr = (salarioLiquido * 0.275) - 869.36;
+        }
+
+        salarioLiquido = salarioLiquido - valorIr;
+
+        System.out.println("Salário Bruto: " + String.format("%.2f",salario) +
+            "\nHoras extras: " + String.format("%.2f",salarioHorasExtras) +
+            "\nHoras de Domingo e Feriados: " + String.format("%.2f",salarioHorasExtrasDomingosEFeriados) +
+            "\nSalário Final: " + String.format("%.2f",salarioFinal) +
+            "\nValor INSS: " + String.format("%.2f",valorInss) +
+            "\nValor IR: " + String.format("%.2f",valorIr) +
+            "\nSalário Líquido: " + String.format("%.2f",salarioLiquido)
         );
 
 
